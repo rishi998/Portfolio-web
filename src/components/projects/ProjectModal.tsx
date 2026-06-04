@@ -14,7 +14,6 @@ import {
 import { workAsset } from "@/lib/work-assets";
 import { springHeavy } from "@/lib/motion";
 
-
 export function ProjectModal({
   project,
   onClose,
@@ -40,7 +39,7 @@ export function ProjectModal({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100] flex items-end justify-center bg-obsidian/60 p-0 backdrop-blur-sm sm:items-center sm:p-4"
+          className="fixed inset-0 z-[100] flex items-end justify-center bg-charcoal/80 p-0 backdrop-blur-md sm:items-center sm:p-4"
           onClick={onClose}
           role="dialog"
           aria-modal="true"
@@ -52,9 +51,9 @@ export function ProjectModal({
             exit={{ opacity: 0, y: 24 }}
             transition={springHeavy}
             onClick={(e) => e.stopPropagation()}
-            className="flex max-h-[100dvh] w-full max-w-3xl flex-col overflow-hidden rounded-t-2xl border border-border bg-background shadow-2xl sm:max-h-[92dvh] sm:rounded-2xl"
+            className="flex max-h-[100dvh] w-full max-w-3xl flex-col overflow-hidden rounded-t-2xl bg-sand shadow-2xl sm:max-h-[92dvh] sm:rounded-2xl"
           >
-            <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden border-b border-border bg-surface sm:aspect-video">
+            <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden sm:aspect-video">
               <WorkMedia
                 path={project.cover}
                 alt={project.name}
@@ -62,39 +61,36 @@ export function ProjectModal({
                 className="object-cover"
                 sizes="100vw"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent" />
               <button
                 type="button"
                 onClick={onClose}
-                className="absolute right-3 top-3 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border bg-background/90 backdrop-blur-sm sm:right-4 sm:top-4"
+                className="absolute right-3 top-3 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-brass/30 bg-charcoal/80 text-sand backdrop-blur-sm"
                 aria-label="Close"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
-            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-4 sm:p-6 md:p-8">
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-teal sm:text-xs sm:tracking-[0.25em]">
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 sm:p-8">
+              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-brass">
                 {project.typology} · {project.year}
               </p>
-              <h2
-                id="project-modal-title"
-                className="mt-2 text-xl font-semibold leading-snug sm:text-2xl"
-              >
+              <h2 id="project-modal-title" className="mt-2 font-display text-2xl sm:text-3xl">
                 {project.name}
               </h2>
               <p className="mt-1 font-mono text-xs text-muted">{project.location}</p>
-              <p className="mt-4 text-sm leading-relaxed text-muted">
-                {project.description}
-              </p>
+              <div className="brass-line my-6" />
+              <p className="text-base leading-relaxed text-muted">{project.description}</p>
 
               {project.video && (
                 <div className="mt-6 overflow-hidden rounded-xl border border-border">
-                  <div className="flex items-center gap-2 border-b border-border px-3 py-2 font-mono text-[10px] uppercase tracking-wider text-muted sm:px-4">
-                    <Play className="h-3.5 w-3.5 shrink-0" />
+                  <div className="flex items-center gap-2 border-b border-border bg-concrete px-4 py-2 font-mono text-[10px] uppercase tracking-wider text-muted">
+                    <Play className="h-3.5 w-3.5" />
                     Walkthrough
                   </div>
                   <video
-                    className="aspect-video w-full max-w-full bg-obsidian"
+                    className="aspect-video w-full bg-charcoal"
                     controls
                     playsInline
                     preload="metadata"
@@ -106,24 +102,24 @@ export function ProjectModal({
               )}
 
               {project.gallery && project.gallery.filter(isDisplayableMedia).length > 0 && (
-                <div className="mt-6">
-                  <h3 className="font-mono text-[10px] uppercase tracking-wider text-muted">
+                <div className="mt-8">
+                  <h3 className="font-mono text-[10px] uppercase tracking-wider text-brass">
                     Gallery
                   </h3>
-                  <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                  <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
                     {project.gallery.filter(isDisplayableMedia).map((item) => (
                       <a
                         key={item}
                         href={workAsset(item)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="relative aspect-square min-h-[100px] cursor-pointer overflow-hidden rounded-lg border border-border"
+                        className="relative aspect-square min-h-[100px] cursor-pointer overflow-hidden rounded-xl shadow-md"
                       >
                         <WorkMedia
                           path={item}
                           alt={`${project.name} gallery`}
                           className="object-cover"
-                          sizes="(max-width: 640px) 45vw, 200px"
+                          sizes="200px"
                         />
                       </a>
                     ))}
@@ -132,30 +128,27 @@ export function ProjectModal({
               )}
 
               {project.documents.length > 0 && (
-                <div className="mt-6 pb-[env(safe-area-inset-bottom)]">
-                  <h3 className="font-mono text-[10px] uppercase tracking-wider text-muted">
+                <div className="mt-8 pb-[env(safe-area-inset-bottom)]">
+                  <h3 className="font-mono text-[10px] uppercase tracking-wider text-brass">
                     Documents
                   </h3>
                   <ul className="mt-3 space-y-2">
-                    {project.documents.map((d) => {
-                      const href = getDocumentUrl(d.path);
-                      return (
-                        <li key={d.path}>
-                          <a
-                            href={href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex cursor-pointer items-start justify-between gap-3 rounded-lg border border-border px-3 py-3 text-sm transition-colors hover:border-teal/40 hover:bg-surface sm:items-center sm:px-4"
-                          >
-                            <span className="flex min-w-0 items-start gap-3 sm:items-center">
-                              <FileText className="mt-0.5 h-4 w-4 shrink-0 text-teal sm:mt-0" />
-                              <span className="min-w-0 break-words">{d.label}</span>
-                            </span>
-                            <ExternalLink className="mt-1 h-3.5 w-3.5 shrink-0 text-muted sm:mt-0" />
-                          </a>
-                        </li>
-                      );
-                    })}
+                    {project.documents.map((d) => (
+                      <li key={d.path}>
+                        <a
+                          href={getDocumentUrl(d.path)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex cursor-pointer items-center justify-between gap-3 rounded-xl border border-border bg-concrete/50 px-4 py-3 text-sm transition-colors hover:border-brass/40"
+                        >
+                          <span className="flex min-w-0 items-center gap-3">
+                            <FileText className="h-4 w-4 shrink-0 text-brass" />
+                            <span className="min-w-0 break-words">{d.label}</span>
+                          </span>
+                          <ExternalLink className="h-3.5 w-3.5 shrink-0 text-muted" />
+                        </a>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               )}

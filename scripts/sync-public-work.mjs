@@ -12,6 +12,8 @@ const catalogFile = path.join(root, "src/data/work-catalog.ts");
 const workRoot = path.join(root, "work");
 const publicRoot = path.join(root, "public/work");
 
+const HERO_VIDEO = "SPA/render/Clip 1.mp4";
+
 function collectPathsFromCatalog(content) {
   const paths = new Set();
 
@@ -51,7 +53,7 @@ function copyFile(rel) {
 }
 
 const catalog = fs.readFileSync(catalogFile, "utf8");
-const paths = collectPathsFromCatalog(catalog);
+const paths = [...new Set([...collectPathsFromCatalog(catalog), HERO_VIDEO])];
 
 if (fs.existsSync(publicRoot)) {
   fs.rmSync(publicRoot, { recursive: true, force: true });

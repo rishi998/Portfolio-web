@@ -9,6 +9,8 @@ import {
   WHATSAPP_URL,
 } from "@/lib/constants";
 import { WorkMedia } from "@/components/ui/WorkMedia";
+import { MagneticButton } from "@/components/ui/MagneticButton";
+import { SectionLabel } from "@/components/ui/SectionLabel";
 import { fadeUp, staggerContainer, staggerItem } from "@/lib/motion";
 
 export function Contact({ showHeading = true }: { showHeading?: boolean }) {
@@ -23,7 +25,7 @@ export function Contact({ showHeading = true }: { showHeading?: boolean }) {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="border-t border-border py-16 sm:py-24 md:py-32"
+      className="bg-luxury-dark py-20 sm:py-28"
     >
       <div className="mx-auto min-w-0 max-w-7xl px-4 sm:px-6 lg:px-8">
         {showHeading ? (
@@ -34,14 +36,12 @@ export function Contact({ showHeading = true }: { showHeading?: boolean }) {
             viewport={{ once: true }}
             className="mb-14"
           >
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-teal">
-              Inquiry
-            </p>
+            <SectionLabel>Begin Your Project</SectionLabel>
             <h2
               id="contact-heading"
-              className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl"
+              className="mt-4 font-display text-3xl text-sand sm:text-5xl"
             >
-              Contact & Booking
+              Contact &amp; Booking
             </h2>
           </motion.div>
         ) : (
@@ -50,73 +50,75 @@ export function Contact({ showHeading = true }: { showHeading?: boolean }) {
           </h2>
         )}
 
-        <div className="grid gap-10 sm:gap-16 lg:grid-cols-5">
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <motion.form
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             onSubmit={handleSubmit}
-            className="space-y-6 lg:col-span-3"
+            className="glass-dark space-y-6 rounded-2xl p-6 sm:p-8"
           >
-            <motion.div variants={staggerItem} className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-6 sm:grid-cols-2">
               <label className="block">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-muted">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-brass/80">
                   Name
                 </span>
                 <input
                   required
                   type="text"
                   name="name"
-                  className="mt-2 w-full border-0 border-b border-border bg-transparent py-3 text-sm outline-none transition-colors focus:border-accent"
+                  className="mt-2 w-full border-0 border-b border-brass/30 bg-transparent py-3 text-sm text-sand outline-none focus:border-brass"
                   placeholder="Your name"
                 />
               </label>
               <label className="block">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-muted">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-brass/80">
                   Email
                 </span>
                 <input
                   required
                   type="email"
                   name="email"
-                  className="mt-2 w-full border-0 border-b border-border bg-transparent py-3 text-sm outline-none transition-colors focus:border-accent"
+                  className="mt-2 w-full border-0 border-b border-brass/30 bg-transparent py-3 text-sm text-sand outline-none focus:border-brass"
                   placeholder="you@email.com"
                 />
               </label>
-            </motion.div>
-            <motion.label variants={staggerItem} className="block">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-muted">
+            </div>
+            <label className="block">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-brass/80">
                 Project Brief
               </span>
               <textarea
                 required
                 name="message"
                 rows={4}
-                className="mt-2 w-full resize-none border-0 border-b border-border bg-transparent py-3 text-sm outline-none transition-colors focus:border-accent"
+                className="mt-2 w-full resize-none border-0 border-b border-brass/30 bg-transparent py-3 text-sm text-sand outline-none focus:border-brass"
                 placeholder="Describe your spatial requirements..."
               />
-            </motion.label>
-            <motion.div variants={staggerItem} className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:gap-4">
-              <button
+            </label>
+            <div className="flex flex-col gap-3 pt-2 sm:flex-row">
+              <MagneticButton
                 type="submit"
-                className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-foreground bg-foreground px-6 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90"
+                className="rounded-full bg-brass px-7 py-3.5 text-sm font-semibold text-charcoal"
               >
-                <Send className="h-4 w-4" />
-                Send Inquiry
-              </button>
-              <a
+                <span className="inline-flex items-center gap-2">
+                  <Send className="h-4 w-4" />
+                  Send Inquiry
+                </span>
+              </MagneticButton>
+              <MagneticButton
                 href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#25D366] px-6 py-3 text-sm font-medium text-[#25D366] transition-colors hover:bg-[#25D366]/10"
+                className="rounded-full border border-brass/40 px-7 py-3.5 text-sm font-medium text-brass"
               >
-                <MessageCircle className="h-4 w-4" />
-                WhatsApp Direct
-              </a>
-            </motion.div>
+                <span className="inline-flex items-center gap-2">
+                  <MessageCircle className="h-4 w-4" />
+                  WhatsApp
+                </span>
+              </MagneticButton>
+            </div>
             {submitted && (
-              <p className="font-mono text-xs text-teal" role="status">
+              <p className="font-mono text-xs text-brass" role="status">
                 Thank you — we will respond within one business day.
               </p>
             )}
@@ -127,30 +129,34 @@ export function Contact({ showHeading = true }: { showHeading?: boolean }) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="space-y-8 lg:col-span-2"
+            className="space-y-6"
           >
             <motion.div
               variants={staggerItem}
-              className="relative aspect-[16/10] min-h-[180px] overflow-hidden rounded-xl border border-border"
+              className="relative aspect-[16/10] min-h-[180px] overflow-hidden rounded-2xl"
             >
               <WorkMedia
                 path="Club Front NIght.jpg.jpeg"
-                alt="Commercial project exterior — club front night render"
-                sizes="(max-width: 1024px) 100vw, 40vw"
+                alt="Studio project exterior"
                 className="object-cover"
+                sizes="50vw"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 to-transparent" />
+              <p className="absolute bottom-4 left-4 font-mono text-[10px] uppercase tracking-widest text-brass">
+                Noida Sector 105
+              </p>
             </motion.div>
 
-            <motion.div variants={staggerItem}>
-              <div className="flex items-center gap-2 text-sm font-semibold">
-                <Clock className="h-4 w-4 text-teal" />
+            <motion.div variants={staggerItem} className="glass-dark rounded-2xl p-6">
+              <div className="flex items-center gap-2 text-sm font-semibold text-sand">
+                <Clock className="h-4 w-4 text-brass" />
                 Business Hours
               </div>
               <ul className="mt-4 space-y-2">
                 {OFFICE_HOURS.map(({ day, hours }) => (
                   <li
                     key={day}
-                    className="flex justify-between font-mono text-xs text-muted"
+                    className="flex justify-between font-mono text-xs text-stone/75"
                   >
                     <span>{day}</span>
                     <span>{hours}</span>
@@ -159,30 +165,16 @@ export function Contact({ showHeading = true }: { showHeading?: boolean }) {
               </ul>
             </motion.div>
 
-            <motion.div variants={staggerItem}>
-              <div className="flex items-center gap-2 text-sm font-semibold">
-                <MapPin className="h-4 w-4 text-teal" />
-                Office
+            <motion.div variants={staggerItem} className="glass-dark rounded-2xl p-6">
+              <div className="flex items-center gap-2 text-sm font-semibold text-sand">
+                <MapPin className="h-4 w-4 text-brass" />
+                Studio Location
               </div>
-              <p className="mt-4 text-sm text-muted">{OFFICE_LOCATION.address}</p>
-              <p className="mt-1 font-mono text-xs text-muted/80">
+              <p className="mt-4 text-sm text-stone/80">{OFFICE_LOCATION.address}</p>
+              <p className="mt-1 font-mono text-xs text-stone/60">
                 {OFFICE_LOCATION.coordinates}
               </p>
             </motion.div>
-
-            <motion.a
-              variants={staggerItem}
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.01 }}
-              className="block cursor-pointer rounded-xl border border-border bg-surface p-6 transition-colors hover:border-teal/40"
-            >
-              <p className="text-sm font-semibold">Prefer instant dialogue?</p>
-              <p className="mt-2 text-xs text-muted">
-                Message the lead architect on WhatsApp — pre-filled greeting ready to send.
-              </p>
-            </motion.a>
           </motion.aside>
         </div>
       </div>

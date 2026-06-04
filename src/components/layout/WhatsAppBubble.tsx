@@ -22,24 +22,22 @@ export function WhatsAppBubble() {
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: 12, scale: 0.95 }}
             transition={springHeavy}
-            className="absolute bottom-full right-0 mb-2 w-[min(16rem,calc(100vw-2rem))] cursor-pointer rounded-xl border border-border bg-background/95 p-3 shadow-xl backdrop-blur-md sm:mb-3 sm:w-64 sm:p-4"
+            className="absolute bottom-full right-0 mb-2 w-[min(16rem,calc(100vw-2rem))] cursor-pointer rounded-xl border border-brass/25 bg-charcoal/95 p-4 shadow-2xl backdrop-blur-md"
           >
             <a
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="block cursor-pointer"
-              aria-label="Chat with Lead Architect on WhatsApp"
+              aria-label="Chat on WhatsApp"
             >
-              <p className="text-sm font-semibold leading-snug text-foreground">
-                Chat with Lead Architect
-              </p>
+              <p className="text-sm font-semibold text-sand">Chat with Lead Architect</p>
               <div className="mt-2 flex items-center gap-2">
                 <span className="relative flex h-2.5 w-2.5 shrink-0">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-60" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-teal" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brass opacity-60" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-brass" />
                 </span>
-                <span className="font-mono text-xs text-muted">Online now</span>
+                <span className="font-mono text-xs text-stone/70">Online now</span>
               </div>
             </a>
           </motion.div>
@@ -50,13 +48,9 @@ export function WhatsAppBubble() {
         href={WHATSAPP_URL}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Open WhatsApp chat"
-        className="flex cursor-pointer items-center gap-2 overflow-hidden rounded-full border border-border bg-background shadow-lg sm:gap-3"
-        animate={{
-          width: expanded ? "auto" : 52,
-          paddingLeft: expanded ? 12 : 0,
-          paddingRight: expanded ? 12 : 0,
-        }}
+        aria-label="Open WhatsApp"
+        className="flex cursor-pointer items-center overflow-hidden rounded-full border border-brass/30 bg-charcoal shadow-xl"
+        animate={{ width: expanded ? "auto" : 52, paddingRight: expanded ? 14 : 0 }}
         transition={springSnappy}
         whileTap={{ scale: 0.97 }}
       >
@@ -64,13 +58,9 @@ export function WhatsAppBubble() {
           <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={1.75} />
         </span>
         {expanded && (
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="hidden pr-1 text-sm font-medium text-foreground sm:inline sm:pr-2"
-          >
+          <span className="hidden pr-1 text-sm font-medium text-brass sm:inline sm:pr-2">
             WhatsApp
-          </motion.span>
+          </span>
         )}
       </motion.a>
     </div>
