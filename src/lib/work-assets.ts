@@ -1,12 +1,8 @@
-/** Build a safe URL to files served from the /work folder via API. */
+/** Static URLs for files in public/work/ (synced from /work via prebuild). */
 export function workAsset(relativePath: string): string {
   const normalized = relativePath.replace(/\\/g, "/");
-  return `/work-assets/${normalized
+  return `/work/${normalized
     .split("/")
     .map((segment) => encodeURIComponent(segment))
     .join("/")}`;
-}
-
-export function isWorkAsset(url: string): boolean {
-  return url.startsWith("/work-assets/");
 }

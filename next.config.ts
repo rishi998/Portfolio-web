@@ -10,14 +10,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  async rewrites() {
-    return [
-      {
-        source: "/work-assets/:path*",
-        destination: "/api/work-assets/:path*",
-      },
-    ];
-  },
 };
 
 export default nextConfig;

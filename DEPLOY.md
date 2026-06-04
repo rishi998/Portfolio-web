@@ -1,56 +1,33 @@
 # Deploy to Vercel
 
-This project is configured for [Vercel](https://vercel.com) with Next.js App Router.
+## How assets work
 
-## Prerequisites
+1. **`npm run build`** runs `sync:work` first — copies only files listed in `src/data/work-catalog.ts` from `work/` → `public/work/`.
+2. The site serves them as **static files** at `/work/...` (no API route, no 250MB serverless bundle).
+3. The old `/api/work-assets` route was removed (it bundled all of `work/` and hit the **250 MB** serverless limit).
 
-1. Push the project to **GitHub**, **GitLab**, or **Bitbucket**.
-2. **Commit the `work/` folder** — portfolio images and PDFs are served from it at runtime. Without it, media will not load in production.
+Keep `work/` in Git for the sync step, or commit `public/work/` after `npm run sync:work` so deploys work even without the full `work/` folder.
 
-> **GitHub limit:** Each file must be **under 2 GB**. `work/SPA/render/Clip 1.mp4` (~2.2 GB) is gitignored — it stays on your PC for local dev only. Compress it or host on YouTube/Cloudinary if you need it online.
+## Deploy steps
 
-> **Vercel limit:** Total deployment ~250 MB. Your `work/` folder (without that video) is ~600 MB — if deploy fails, move PDFs to cloud storage or trim `work/`.
+1. Push to GitHub (see size notes below).
+2. [vercel.com/new](https://vercel.com/new) → import **Portfolio-web**.
+3. Defaults: Framework **Next.js**, Build **`npm run build`**, Install **`npm install`**.
+4. Deploy.
 
-## Deploy (recommended)
+## Git / GitHub limits
 
-1. Go to [vercel.com/new](https://vercel.com/new).
-2. Import your repository.
-3. Vercel auto-detects **Next.js** — leave defaults:
-   - **Framework Preset:** Next.js
-   - **Build Command:** `npm run build`
-   - **Output Directory:** (default)
-   - **Install Command:** `npm install`
-4. Click **Deploy**.
+| Rule | Detail |
+|------|--------|
+| Max LFS file | **2 GB** — `Clip 1.mp4` is gitignored |
+| `public/work/` after sync | ~100 MB (catalog images + PDFs only) |
 
-No environment variables are required for the basic portfolio.
+## If build still fails on size
 
-## Deploy via CLI
-
-```bash
-npm i -g vercel
-vercel login
-vercel
-```
-
-Follow prompts. For production:
-
-```bash
-vercel --prod
-```
-
-## Project config
-
-| File | Purpose |
-|------|---------|
-| `vercel.json` | Framework, Mumbai region (`bom1`), API function timeout for `/work-assets` |
-| `src/app/api/work-assets/[...path]/route.ts` | `runtime: nodejs` — required to read `work/` on the server |
-
-## After deploy
-
-- Open your Vercel URL on phone and desktop to verify layout.
-- Test a project card → PDF links should open.
-- If images 404, confirm `work/` was included in the Git commit pushed to Vercel.
+- Compress JPG/PNG in `work/SPA/render/` (largest folder).
+- Remove PDFs from `work-catalog.ts` and link to Google Drive instead.
+- Run `npm run sync:work` and commit `public/work/`; add `work/` to `.vercelignore` (already set).
 
 ## Custom domain
 
-Vercel Dashboard → Project → **Settings** → **Domains** → add your domain.
+Vercel → Project → **Settings** → **Domains**.
