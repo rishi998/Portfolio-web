@@ -35,9 +35,6 @@ yarn-error.log*
 # vercel
 .vercel
 
-# Too large for GitHub (max 2 GB per LFS file) — keep locally for dev only
-work/SPA/render/Clip 1.mp4
-
 # CAD / backups — not used on site (reduces repo size)
 work/**/*.bak
 work/**/*.dwg
