@@ -2,11 +2,11 @@
 
 ## How assets work
 
-1. **`npm run build`** runs `sync:work` first — copies only files listed in `src/data/work-catalog.ts` from `work/` → `public/work/`.
+1. **`npm run build`** runs `sync:work` first — copies catalog files from `work/` → `public/work/` (incremental; does **not** delete existing deploy assets).
 2. The site serves them as **static files** at `/work/...` (no API route, no 250MB serverless bundle).
-3. The old `/api/work-assets` route was removed (it bundled all of `work/` and hit the **250 MB** serverless limit).
+3. **Hero video** (`public/work/SPA/render/Clip 1.mp4`) is committed via **Git LFS** because `work/SPA/render/Clip 1.mp4` is gitignored. Vercel runs `git lfs pull` on install (see `vercel.json`).
 
-Keep `work/` in Git for the sync step, or commit `public/work/` after `npm run sync:work` so deploys work even without the full `work/` folder.
+Keep `work/` in Git for the sync step, and keep `public/work/SPA/render/Clip 1.mp4` in Git LFS so deploys include the hero background video.
 
 ## Deploy steps
 
@@ -19,8 +19,9 @@ Keep `work/` in Git for the sync step, or commit `public/work/` after `npm run s
 
 | Rule | Detail |
 |------|--------|
-| Max LFS file | **2 GB** — `Clip 1.mp4` is gitignored |
-| `public/work/` after sync | ~100 MB (catalog images + PDFs only) |
+| Hero video | `work/SPA/render/Clip 1.mp4` is gitignored; deploy uses **`public/work/SPA/render/Clip 1.mp4`** (Git LFS) |
+| `public/work/` after sync | ~130 MB including hero video (~49 MB) |
+| Vercel install | `git lfs pull && npm install` — required so the video is not a 130-byte LFS pointer |
 
 ## If build still fails on size
 
