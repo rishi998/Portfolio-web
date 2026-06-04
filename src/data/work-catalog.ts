@@ -133,17 +133,16 @@ export const workProjects: Project[] = [
         "Cargo Terminal Block",
         "dholera files/DHOLERA AIRPORT - CAGRO TERMINAL BLOCK.pdf",
       ),
-      doc("Zoning Option 1", "dholera files/ZOING PLAN OPTION -1.pdf"),
     ],
   },
   {
     id: "worldmark-2nd-floor",
-    name: "Worldmark — 2nd Floor Office",
+    name: "Interior Office Projects",
     typology: "Commercial",
     year: "2026",
     location: "Worldmark, NCR",
     description:
-      "Complete 2nd floor drawing set: existing, demolition, ceiling, flooring, furniture, and glazing.",
+      "Complete interior office drawing sets: Worldmark 2nd floor fit-out, zoning studies, and coordinated layout documentation.",
     span: "wide",
     cover: "dholera files/bed .jpeg",
     gallery: ["dholera files/1.png"],
@@ -156,6 +155,7 @@ export const workProjects: Project[] = [
       doc("Civil Glazing Plan", "10-03-2026/CIVIL GLAZING PLAN.pdf"),
       doc("Worldmark Model", "dholera files/5-Worldmark - 2nd Floor-Model.pdf"),
       doc("Office Layout", "dholera files/5-Worldmark - 2nd Floor-OFFICE LAYOUT.pdf"),
+      doc("Zoning Option 1", "dholera files/ZOING PLAN OPTION -1.pdf"),
     ],
   },
   {
