@@ -58,44 +58,46 @@ export function Navbar() {
       <motion.header
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="fixed top-0 left-0 right-0 z-50 px-3 pt-[max(0.75rem,env(safe-area-inset-top))] sm:px-4 sm:pt-4"
+        className="fixed top-0 left-0 right-0 z-50 pt-[env(safe-area-inset-top,0px)]"
       >
-        <nav
-          aria-label="Main navigation"
-          className="mx-auto flex max-w-7xl items-center justify-between gap-2 rounded-2xl border border-brass/15 bg-charcoal/90 px-4 py-3 shadow-xl backdrop-blur-xl sm:px-5"
-        >
-          <Link
-            href="/"
-            className="font-display text-base tracking-tight text-sand sm:text-lg"
+        <div className="site-header-bar flex items-center px-3 sm:px-4">
+          <nav
+            aria-label="Main navigation"
+            className="mx-auto flex w-full max-w-7xl items-center justify-between gap-3 rounded-2xl border border-brass/15 bg-charcoal/90 px-3 py-2.5 shadow-xl backdrop-blur-xl sm:gap-4 sm:px-5 sm:py-3"
           >
-            {STUDIO_NAME}
-          </Link>
-
-          <div className="hidden items-center gap-8 md:flex">
-            {NAV_LINKS.map((link) => (
-              <NavLink key={link.href} href={link.href} label={link.label} />
-            ))}
-          </div>
-
-          <div className="flex shrink-0 items-center gap-2">
-            <MagneticButton
-              href={WHATSAPP_URL}
-              className="hidden rounded-full bg-brass px-5 py-2.5 text-xs font-semibold text-charcoal sm:inline-flex sm:text-sm"
+            <Link
+              href="/"
+              className="min-w-0 shrink font-display text-sm tracking-tight text-sand whitespace-nowrap sm:text-lg"
             >
-              Book Consultation
-            </MagneticButton>
+              {STUDIO_NAME}
+            </Link>
 
-            <button
-              type="button"
-              onClick={() => setOpen((v) => !v)}
-              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-brass/20 text-sand md:hidden"
-              aria-expanded={open}
-              aria-label={open ? "Close menu" : "Open menu"}
-            >
-              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
-          </div>
-        </nav>
+            <div className="hidden items-center gap-8 md:flex">
+              {NAV_LINKS.map((link) => (
+                <NavLink key={link.href} href={link.href} label={link.label} />
+              ))}
+            </div>
+
+            <div className="flex shrink-0 items-center gap-2">
+              <MagneticButton
+                href={WHATSAPP_URL}
+                className="hidden rounded-full bg-brass px-5 py-2.5 text-xs font-semibold text-charcoal md:inline-flex md:text-sm"
+              >
+                Book Consultation
+              </MagneticButton>
+
+              <button
+                type="button"
+                onClick={() => setOpen((v) => !v)}
+                className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border border-brass/20 text-sand sm:h-10 sm:w-10 md:hidden"
+                aria-expanded={open}
+                aria-label={open ? "Close menu" : "Open menu"}
+              >
+                {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </button>
+            </div>
+          </nav>
+        </div>
       </motion.header>
 
       <AnimatePresence>
@@ -113,7 +115,7 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={springSnappy}
-              className="fixed left-3 right-3 top-[calc(4.5rem+env(safe-area-inset-top))] z-50 rounded-2xl border border-brass/20 bg-graphite p-5 shadow-2xl md:hidden"
+              className="fixed left-3 right-3 z-50 rounded-2xl border border-brass/20 bg-graphite p-5 shadow-2xl md:hidden top-[calc(var(--site-header-height)+env(safe-area-inset-top,0px)+0.5rem)]"
             >
               <div className="flex flex-col gap-2">
                 {NAV_LINKS.map((link) => (

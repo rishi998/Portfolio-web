@@ -3,6 +3,7 @@ export type ProjectCategory =
   | "Residential"
   | "Commercial"
   | "Interior"
+  | "Industrial"
   | "Concept";
 
 export type ProjectTypology = Exclude<ProjectCategory, "All">;

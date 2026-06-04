@@ -1,20 +1,11 @@
 import { Contact } from "@/components/sections/Contact";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { STUDIO_NAME } from "@/lib/constants";
 
 export const metadata = {
-  title: "Contact — Mahto Studio",
-  description: "Book a consultation, send an inquiry, or connect via WhatsApp.",
+  title: `Contact — ${STUDIO_NAME}`,
+  description: "Send a project enquiry to the studio.",
 };
 
 export default function ContactPage() {
-  return (
-    <>
-      <PageHeader
-        label="Connect"
-        title="Contact & Booking"
-        description="Schedule a consultation or reach the lead architect directly."
-      />
-      <Contact showHeading={false} />
-    </>
-  );
+  return <Contact />;
 }

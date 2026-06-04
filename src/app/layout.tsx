@@ -3,6 +3,7 @@ import { Playfair_Display, Manrope, JetBrains_Mono } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { WhatsAppBubble } from "@/components/layout/WhatsAppBubble";
 import { Footer } from "@/components/layout/Footer";
+import { STUDIO_NAME } from "@/lib/constants";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -24,7 +25,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Puja Daksh — Architecture & Spatial Design",
+  title: `${STUDIO_NAME} — Architecture & Spatial Design`,
   description:
     "Award-caliber architecture portfolio. Luxury residential, commercial, interior and visualization projects across NCR.",
   metadataBase: process.env.VERCEL_URL
@@ -42,7 +43,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-sand font-body antialiased text-foreground">
         <Navbar />
-        <main className="min-w-0 overflow-x-hidden pt-[5.25rem] sm:pt-[5.75rem]">
+        <main className="site-header-offset min-w-0 overflow-x-hidden">
           {children}
         </main>
         <Footer />

@@ -1,5 +1,6 @@
-export const STUDIO_NAME = "Puja Daksh";
+export const STUDIO_NAME = "Pooja Daksh";
 export const STUDIO_TAGLINE = "Architecture & Spatial Design";
+export const STUDIO_ROLE = "Architectural Designer";
 
 export const WHATSAPP_NUMBER = "917701864514";
 export const WHATSAPP_MESSAGE = "hi";
@@ -16,6 +17,7 @@ export const FILTER_TABS = [
   { id: "Residential", label: "Residential" },
   { id: "Commercial", label: "Commercial" },
   { id: "Interior", label: "Interior" },
+  { id: "Industrial", label: "Industrial" },
   { id: "Hospitality", label: "Hospitality" },
   { id: "Visualization", label: "Visualization" },
 ] as const;
@@ -26,19 +28,18 @@ export type FilterId = (typeof FILTER_TABS)[number]["id"];
 export const HOSPITALITY_IDS = new Set([
   "spa-wellness-interior",
   "spa-mezzanine-layout",
-  "club-front-commercial",
 ]);
 
 export const STUDIO_STATS = [
-  { value: 15, suffix: "+", label: "Projects Delivered" },
+  { value: 11, suffix: "+", label: "Projects Delivered" },
   { value: 8, suffix: "+", label: "Cities & Corridors" },
   { value: 120, suffix: "+", label: "Design Consultations" },
-  { value: 6, suffix: "+", label: "Years of Practice" },
+  { value: 4, suffix: "+", label: "Years of Experience" },
 ] as const;
 
 export const HERO_STATS = [
-  { label: "Years", value: "6+" },
-  { label: "Projects", value: "15+" },
+  { label: "Years", value: "4+" },
+  { label: "Projects", value: "11+" },
   { label: "Expertise", value: "NCR · Interior · Residential" },
 ] as const;
 
@@ -73,7 +74,7 @@ export const PROCESS_STEPS = [
 export const TESTIMONIALS = [
   {
     quote:
-      "Puja translated our wellness program into a spatial experience that feels calm, premium, and technically flawless.",
+      "Pooja translated our wellness program into a spatial experience that feels calm, premium, and technically flawless.",
     name: "SPA Wellness Client",
     project: "Interior · Hospitality",
   },

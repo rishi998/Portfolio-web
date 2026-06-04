@@ -18,6 +18,28 @@
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
+:root {
+  --site-header-height: 5.25rem;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --site-header-height: 5.75rem;
+  }
+}
+
+.site-header-offset {
+  padding-top: calc(var(--site-header-height) + env(safe-area-inset-top, 0px));
+}
+
+.site-header-bar {
+  height: var(--site-header-height);
+}
+
+.site-main-min-h {
+  min-height: calc(100dvh - var(--site-header-height) - env(safe-area-inset-top, 0px));
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;

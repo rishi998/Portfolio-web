@@ -1,8 +1,9 @@
 import { About } from "@/components/sections/About";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { STUDIO_NAME } from "@/lib/constants";
 
 export const metadata = {
-  title: "About — Mahto Studio",
+  title: `About — ${STUDIO_NAME}`,
   description: "Design philosophy, credentials, and spatial approach.",
 };
 

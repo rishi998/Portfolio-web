@@ -1,46 +1,94 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { workAsset } from "@/lib/work-assets";
 import { WorkMedia } from "@/components/ui/WorkMedia";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { HERO_STATS, WHATSAPP_URL } from "@/lib/constants";
+import { HERO_STATS, STUDIO_NAME, STUDIO_ROLE, WHATSAPP_URL } from "@/lib/constants";
 import { fadeUp, springHeavy, staggerContainer, staggerItem } from "@/lib/motion";
+
+const HERO_VIDEO = "SPA/render/Clip 1.mp4";
+const HERO_POSTER = "SPA/render/NEW 8.jpg";
+
+function useHeroBackgroundVideo() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.setAttribute("webkit-playsinline", "true");
+
+    const play = () => {
+      video.muted = true;
+      void video.play().catch(() => {
+        /* Autoplay blocked until user gesture on some mobile browsers */
+      });
+    };
+
+    play();
+
+    video.addEventListener("loadeddata", play);
+    video.addEventListener("canplay", play);
+
+    const onVisible = () => {
+      if (document.visibilityState === "visible") play();
+    };
+
+    document.addEventListener("visibilitychange", onVisible);
+    document.addEventListener("touchstart", play, { once: true, passive: true });
+
+    return () => {
+      video.removeEventListener("loadeddata", play);
+      video.removeEventListener("canplay", play);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, []);
+
+  return videoRef;
+}
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
+  const videoRef = useHeroBackgroundVideo();
 
   return (
     <section
       ref={ref}
       id="hero"
       aria-label="Introduction"
-      className="relative overflow-hidden bg-charcoal"
+      className="site-main-min-h relative overflow-hidden bg-charcoal"
     >
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 min-h-full min-w-full">
         <video
-          className="absolute inset-0 h-full w-full object-cover"
+          ref={videoRef}
+          className="absolute inset-0 h-full w-full object-cover [transform:translateZ(0)]"
           autoPlay
           muted
           loop
           playsInline
           preload="auto"
-          poster={workAsset("SPA/render/NEW 8.jpg")}
+          poster={workAsset(HERO_POSTER)}
           aria-hidden
         >
-          <source src={workAsset("SPA/render/Clip 1.mp4")} type="video/mp4" />
+          <source src={workAsset(HERO_VIDEO)} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/85 to-charcoal/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-charcoal/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/75 via-charcoal/55 to-charcoal/35 md:from-charcoal md:via-charcoal/85 md:to-charcoal/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/15 to-charcoal/25 md:from-charcoal md:via-transparent md:to-charcoal/30" />
       </div>
 
-      <div className="relative mx-auto grid min-h-[calc(100dvh-5.25rem)] max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:py-20">
+      <div className="site-main-min-h relative mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:gap-10 sm:px-6 sm:py-12 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:py-20">
         <div className="flex flex-col justify-end lg:justify-center">
           <motion.div variants={fadeUp} initial="hidden" animate="visible">
-            <SectionLabel>Puja Daksh · Architecture Studio</SectionLabel>
+            <SectionLabel>
+              {STUDIO_NAME} · {STUDIO_ROLE}
+            </SectionLabel>
           </motion.div>
 
           <motion.h1
@@ -70,17 +118,17 @@ export function Hero() {
             initial="hidden"
             animate="visible"
             transition={{ ...springHeavy, delay: 0.18 }}
-            className="mt-8 flex flex-wrap gap-4"
+            className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:gap-4"
           >
             <MagneticButton
               href="#featured"
-              className="rounded-full bg-brass px-7 py-3.5 text-sm font-semibold text-charcoal shadow-lg shadow-brass/20"
+              className="w-full rounded-full bg-brass px-7 py-3.5 text-center text-sm font-semibold text-charcoal shadow-lg shadow-brass/20 sm:w-auto"
             >
               View Featured Work
             </MagneticButton>
             <MagneticButton
               href={WHATSAPP_URL}
-              className="glass-dark rounded-full px-7 py-3.5 text-sm font-medium text-sand"
+              className="glass-dark w-full rounded-full px-7 py-3.5 text-center text-sm font-medium text-sand sm:w-auto"
             >
               Book Consultation
             </MagneticButton>
@@ -90,7 +138,7 @@ export function Hero() {
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
-            className="mt-10 flex flex-wrap gap-6 border-t border-brass/25 pt-8 lg:mt-14"
+            className="mt-8 flex flex-wrap gap-5 border-t border-brass/25 pt-6 sm:mt-10 sm:gap-6 sm:pt-8 lg:mt-14"
           >
             {HERO_STATS.map((s) => (
               <motion.div key={s.label} variants={staggerItem}>
@@ -134,7 +182,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
-        className="absolute bottom-6 left-1/2 flex -translate-x-1/2 cursor-pointer flex-col items-center gap-2 text-stone/60"
+        className="absolute bottom-4 left-1/2 flex -translate-x-1/2 cursor-pointer flex-col items-center gap-2 text-stone/60 sm:bottom-6"
         aria-label="Scroll to portfolio"
       >
         <span className="font-mono text-[9px] uppercase tracking-[0.4em]">Explore</span>
